@@ -1,5 +1,6 @@
 package P2;
 
+
 public class IuliusParkingLot implements Parking {
 
     private boolean[] parkingLot = new boolean[100];

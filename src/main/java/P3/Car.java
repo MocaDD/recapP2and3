@@ -9,11 +9,13 @@ public class Car {
     private double gallons;
     private double milesDriven;
     private boolean brokenDown;
+    private double milesPerGallon;
 
-    public Car(@NotNull double gallons, @NotNull double milesDriven)    {
+    public Car(@NotNull double gallons, @NotNull double milesDriven, @NotNull double milesPerGallon)    {
         this.gallons = gallons;
         this.milesDriven = milesDriven;
         this.brokenDown = false;
+        this.milesPerGallon = milesPerGallon;
     }
 
     public boolean turnOnAndDrive(double milesToDrive) {
@@ -28,16 +30,7 @@ public class Car {
                     brokenDown = true;
                     return false;
                 } else {
-                    double range = MILES_PER_GALLON.MILES_PER_GALLON_AUDI.getMiles() * gallons;
-                    if (range >= milesToDrive) {
-                        gallons = gallons - milesToDrive / MILES_PER_GALLON.MILES_PER_GALLON_AUDI.getMiles();
-                        milesDriven = milesDriven + milesToDrive;
-                        return true;
-                    } else {
-                        gallons = 0;
-                        milesDriven = milesDriven + range;
-                        return false;
-                    }
+                    return drive(milesToDrive);
                 }
             }
 
@@ -46,20 +39,24 @@ public class Car {
                     brokenDown = true;
                     return false;
                 } else {
-                    double range = MILES_PER_GALLON.MILES_PER_GALLON_AUDI.getMiles() * gallons;
-                    if (range >= milesToDrive) {
-                        gallons = gallons - milesToDrive / MILES_PER_GALLON.MILES_PER_GALLON_AUDI.getMiles();
-                        milesDriven = milesDriven + milesToDrive;
-                        return true;
-                    } else {
-                        gallons = 0;
-                        milesDriven = milesDriven + range;
-                        return false;
-                    }
+                    return drive(milesToDrive);
                 }
             }
         }
         return false;
+    }
+
+    private boolean drive(double milesToDrive) {
+        double range = milesPerGallon * gallons;
+        if (range >= milesToDrive) {
+            gallons = gallons - (milesToDrive / milesPerGallon);
+            milesDriven = milesDriven + milesToDrive;
+            return true;
+        } else {
+            gallons = 0;
+            milesDriven = milesDriven + range;
+            return false;
+        }
     }
 
     public void fillGas(double numberOfGallons) {

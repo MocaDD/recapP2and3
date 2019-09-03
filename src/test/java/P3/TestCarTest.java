@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 public class TestCarTest {
 
-    Car testedCar = new Car(10,0);
+    Car testedCar = new Car(10,0, 25);
 
     @Test
     public void testCar() {
